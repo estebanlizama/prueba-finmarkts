@@ -1,13 +1,11 @@
 <template>
   <div class="summary-component">
-    <!-- Pestañas de Resumen y Detalles -->
     <v-tabs v-model="tab" background-color="#121212" dark>
       <v-tab value="resumen">Resumen</v-tab>
       <v-tab value="detalles">Detalles</v-tab>
     </v-tabs>
 
     <v-window v-model="tab">
-      <!-- TAB RESUMEN -->
       <v-window-item value="resumen">
         <div class="content">
           <p class="fecha">
@@ -58,7 +56,6 @@
         </div>
       </v-window-item>
 
-      <!-- TAB DETALLES -->
       <v-window-item value="detalles">
         <div class="content">
           <p class="fecha">
@@ -135,14 +132,11 @@ const resumen = computed(() => resumenStore.selectedResumen || {})
 
 const tab = ref('resumen')
 
-// Función para formatear los precios en CLP
 const formatPrice = (value) =>
   value ? value.toLocaleString('es-CL', { minimumFractionDigits: 2 }) : '-'
 
-// Función para formatear porcentaje
 const formatPercentage = (value) => (value ? `${value.toFixed(2)}%` : '-')
 
-// Función para asignar clases a variaciones de precios (positivo/negativo)
 const getVariationClass = (value) => {
   if (!value || isNaN(value)) return ''
   return value >= 0 ? 'positive' : 'negative'
@@ -160,7 +154,6 @@ const tendencyIcon = computed(() => {
 </script>
 
 <style scoped>
-/* SUMMARY COMPONENT */
 .summary-component {
   background: #000;
   color: white;

@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- Barra de búsqueda -->
     <div class="search-container">
       <SearchBarComponent
         v-if="!isLoading && !error"
@@ -11,7 +10,6 @@
       />
     </div>
 
-    <!-- Contenedor del encabezado, gráfico y resumen -->
     <div class="history-summary">
       <div class="chart-summary">
         <HeaderComponent />

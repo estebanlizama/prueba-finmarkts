@@ -8,7 +8,7 @@ export async function fetchJson(folder, fileName) {
 
     if (!json?.data) throw new Error(`Formato inesperado en ${fileName}`)
 
-    return json.data // Devuelve los datos directamente
+    return json.data
   } catch (error) {
     console.error(`Error cargando ${fileName}:`, error)
     return null

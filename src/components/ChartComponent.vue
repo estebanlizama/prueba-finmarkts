@@ -1,6 +1,9 @@
 <template>
   <div class="chart-container">
-    <Line v-if="chartData" :data="chartData" :options="chartOptions" />
+    <template v-if="chartData && chartData.labels[0] !== 'Sin datos'">
+      <Line :data="chartData" :options="chartOptions" />
+    </template>
+    <p v-else class="no-data-message">No hay datos disponibles en este rango de fechas.</p>
 
     <div class="time-buttons">
       <button
@@ -12,9 +15,23 @@
       >
         {{ time.label }}
       </button>
-      <button class="time-btn calendar-btn">
+
+      <button class="time-btn calendar-btn" @click="showDatePicker = true">
         <v-icon icon="mdi-calendar"></v-icon>
       </button>
+
+      <v-dialog v-model="showDatePicker" width="300">
+        <v-card>
+          <v-card-title>Seleccionar Fecha de Inicio</v-card-title>
+          <v-card-text>
+            <v-date-picker v-model="selectedStartDate" />
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="primary" @click="applyCustomDateRange">Aplicar</v-btn>
+            <v-btn @click="showDatePicker = false">Cancelar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </div>
 </template>
@@ -31,14 +48,26 @@ import {
   LinearScale,
   PointElement,
   CategoryScale,
+  Filler,
 } from 'chart.js'
 import { useHistoryStore } from '@/stores/history/historyStore'
 import { getChartOptions, prepareChartData } from '@/utils/chartUtils'
 
-ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale)
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  LinearScale,
+  PointElement,
+  CategoryScale,
+  Filler,
+)
 
 const historyStore = useHistoryStore()
 const selectedTime = ref('1M')
+const showDatePicker = ref(false)
+const selectedStartDate = ref(null)
 
 const timeOptions = ref([
   { label: '1D', value: '1D' },
@@ -51,13 +80,21 @@ const timeOptions = ref([
 ])
 
 const chartData = computed(() =>
-  prepareChartData(historyStore.chart, historyStore.selectedTimeFrame),
+  prepareChartData(historyStore.chart, historyStore.selectedTimeFrame, selectedStartDate.value),
 )
 const chartOptions = computed(() => getChartOptions(chartData.value))
 
 const fetchChartData = async (timeFrame) => {
   selectedTime.value = timeFrame
+  selectedStartDate.value = null
   historyStore.setSelectedTimeFrame(timeFrame)
+}
+
+const applyCustomDateRange = () => {
+  if (selectedStartDate.value) {
+    selectedTime.value = 'custom'
+    showDatePicker.value = false
+  }
 }
 </script>
 
@@ -69,7 +106,7 @@ const fetchChartData = async (timeFrame) => {
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
   width: 100%;
   max-width: 900px;
 }
@@ -104,9 +141,17 @@ const fetchChartData = async (timeFrame) => {
 .time-btn.active {
   background: #003d80;
 }
+
 .calendar-btn {
   margin-left: 20px;
 }
+
+.no-data-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
 @media (max-width: 768px) {
   .chart-container {
     width: 100%;

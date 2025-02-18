@@ -1,6 +1,6 @@
 import { filterByTimeFrame, parseCustomDate } from './dateUtils'
 
-export const prepareChartData = (chartData, timeFrame) => {
+export const prepareChartData = (chartData, timeFrame, customRange = null) => {
   if (!chartData || chartData.length === 0) return null
 
   const sortedChart = [...chartData]
@@ -11,7 +11,23 @@ export const prepareChartData = (chartData, timeFrame) => {
     .filter((item) => item.parsedDate !== null)
     .sort((a, b) => a.parsedDate - b.parsedDate)
 
-  const filteredChart = filterByTimeFrame(sortedChart, timeFrame)
+  const filteredChart = customRange
+    ? filterByDateRange(sortedChart, customRange)
+    : filterByTimeFrame(sortedChart, timeFrame)
+
+  if (filteredChart.length === 0) {
+    return {
+      labels: ['Sin datos'],
+      datasets: [
+        {
+          label: 'Evolución del Índice',
+          data: [0],
+          borderColor: 'rgba(255, 0, 0, 0.5)',
+          backgroundColor: 'rgba(255, 0, 0, 0.1)',
+        },
+      ],
+    }
+  }
 
   return {
     labels: filteredChart.map((item) =>
@@ -27,13 +43,40 @@ export const prepareChartData = (chartData, timeFrame) => {
         data: filteredChart.map((item) => item.lastPrice),
         fill: true,
         borderColor: '#003d80',
-        backgroundColor: 'rgba(0, 61, 128, 0.3)',
+        backgroundColor: (context) => {
+          const { chart } = context
+          const { ctx, chartArea } = chart
+          if (!chartArea) return 'rgba(0, 61, 128, 0.3)'
+          return createGradient(ctx, chartArea)
+        },
         tension: 0.1,
         borderWidth: 1,
         pointRadius: 1,
       },
     ],
   }
+}
+const createGradient = (ctx, chartArea) => {
+  const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom)
+  gradient.addColorStop(0, 'rgba(0, 61, 128, 0.7)')
+  gradient.addColorStop(1, 'rgba(0, 61, 128, 0)')
+  return gradient
+}
+export const filterByDateRange = (data, range) => {
+  if (!range || !range.start) return data
+
+  const startDate = new Date(range.start)
+  const latestDate = data.length ? data[data.length - 1].parsedDate : new Date()
+
+  const filteredData = data.filter(
+    (item) => item.parsedDate >= startDate && item.parsedDate <= latestDate,
+  )
+
+  if (filteredData.length === 0) {
+    return []
+  }
+
+  return filteredData
 }
 
 export const getChartOptions = (chartData) => {
