@@ -1,57 +1,72 @@
-# prueba-finmarkts
+# 📊 prueba-finmarkts
 
-This template should help get you started developing with Vue 3 in Vite.
+Este proyecto está desarrollado con **Vue 3** y **Vite**, y permite visualizar información del mercado financiero con gráficos interactivos y tablas de datos en tiempo real.
 
-## Recommended IDE Setup
+---
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 🔗 Despliegue en Línea
 
-## Customize configuration
+Puedes acceder a la versión desplegada de este proyecto en **Railway** a través del siguiente enlace:
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+➡️ [**prueba-finmarkts**](https://prueba-finmarkts-free.up.railway.app/)
 
-## Project Setup
+Si deseas ejecutar el proyecto localmente, sigue las instrucciones a continuación. ⬇️
+
+---
+
+## 🛠️ Requisitos Previos
+
+Antes de iniciar, asegúrate de tener instalado lo siguiente:
+
+- [Node.js](https://nodejs.org/) (versión recomendada: **18+**)
+- [Git](https://git-scm.com/)
+- Un editor de código como [VSCode](https://code.visualstudio.com/) con la extensión [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (se recomienda deshabilitar Vetur).
+
+---
+
+## ⚙️ Configuración del Proyecto (Ejecución Local)
+
+### 1⃣ Clonar el Repositorio
+
+```sh
+git clone https://github.com/tu-usuario/prueba-finmarkts.git
+cd prueba-finmarkts
+```
+
+### 2⃣ Instalar Dependencias
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 3⃣ Iniciar el Servidor de Desarrollo (Recarga Automática)
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+Este comando iniciará el servidor local y podrás acceder a la aplicación en `http://localhost:5173/` (o el puerto asignado en la consola).
+
+---
+
+## 🚀 Construcción y Despliegue
+
+### 4⃣ Construir para Producción
 
 ```sh
 npm run build
 ```
 
-### Run Headed Component Tests with [Cypress Component Testing](https://on.cypress.io/component)
+Esto generará una versión optimizada en la carpeta `dist/`, lista para desplegar.
 
-```sh
-npm run test:unit:dev # or `npm run test:unit` for headless testing
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
+## 🔍 Linter con [ESLint](https://eslint.org/)
 
 ```sh
 npm run lint
 ```
+
+Esto revisará el código en busca de errores y aplicará las reglas de estilo configuradas en el proyecto.
+
+---
+
+¡Gracias por visitar este proyecto! 🎉
