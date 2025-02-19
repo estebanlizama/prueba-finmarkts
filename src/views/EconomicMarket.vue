@@ -18,6 +18,9 @@
 
       <SummaryComponent />
     </div>
+    <div class="history-summary">
+      <TabComponent />
+    </div>
   </div>
 </template>
 
@@ -30,6 +33,7 @@ import { onMounted, ref, watch } from 'vue'
 import { useConstituentsStore } from '@/stores/constituens/constituensStore'
 import { useResumenStore } from '@/stores/resumen/resumenStore'
 import { useHistoryStore } from '@/stores/history/historyStore'
+import TabComponent from '@/components/TabComponent.vue'
 
 const constituentsStore = useConstituentsStore()
 const resumenStore = useResumenStore()

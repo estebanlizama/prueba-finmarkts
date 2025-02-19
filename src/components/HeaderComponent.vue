@@ -1,7 +1,10 @@
 <template>
   <div class="header">
     <div class="header-title">
-      <h1>{{ resumen?.info?.name ?? 'IPSA' }}, {{ resumen?.info?.countryName }}</h1>
+      <h1>
+        {{ resumen?.info?.name ? resumen?.info?.name + ',' : 'Sin Resumen Asociado' }}
+        {{ resumen?.info?.countryName ?? '' }}
+      </h1>
     </div>
     <div class="header-title">
       <p class="price">Índice</p>

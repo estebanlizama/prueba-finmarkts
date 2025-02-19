@@ -106,7 +106,7 @@ const applyCustomDateRange = () => {
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   width: 100%;
   max-width: 900px;
 }

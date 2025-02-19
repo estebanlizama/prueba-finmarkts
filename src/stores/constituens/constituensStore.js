@@ -5,7 +5,7 @@ import { InfoModel, ConstituentModel } from '@/models/ConstituentModel'
 export const useConstituentsStore = defineStore('constituents', {
   state: () => ({
     info: InfoModel,
-    constituents: ConstituentModel,
+    constituents: [],
     selectedInstrument: null,
   }),
 

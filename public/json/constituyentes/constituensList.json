@@ -4,22 +4,6 @@
     "constituents": [
       {
         "accumulatedVolumeMoney": 158922209,
-        "codeInstrument": "IPSA",
-        "datetimeLastPrice": "06-11-2024 12:20:25",
-        "lastPrice": 272,
-        "name": "IPSA",
-        "pct1Y": 1.5152646114801938,
-        "pct30D": 0.3653001734253314,
-        "pctCY": -4.427266338721014,
-        "pctDay": 0,
-        "performanceAbsolute": 0,
-        "performanceRelative": 0,
-        "shortName": "AGUAS-A",
-        "tend": "same",
-        "volumeMoney": 778464
-      },
-      {
-        "accumulatedVolumeMoney": 158922209,
         "codeInstrument": "AGUAS-A",
         "datetimeLastPrice": "06-11-2024 12:20:25",
         "lastPrice": 272,

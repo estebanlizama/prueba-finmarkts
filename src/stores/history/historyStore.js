@@ -7,6 +7,7 @@ export const useHistoryStore = defineStore('history', {
     info: null,
     chart: [],
     selectedTimeFrame: '1M',
+    selectedTypeTab: 'IPSA',
   }),
 
   actions: {
@@ -24,6 +25,9 @@ export const useHistoryStore = defineStore('history', {
     },
     setSelectedTimeFrame(timeFrame) {
       this.selectedTimeFrame = timeFrame
+    },
+    setselectedTypeTab(tabName) {
+      this.selectedTypeTab = tabName
     },
   },
 })

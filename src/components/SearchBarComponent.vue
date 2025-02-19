@@ -19,6 +19,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useConstituentsStore } from '@/stores/constituens/constituensStore'
+import { useHistoryStore } from '@/stores/history/historyStore'
 
 const props = defineProps({
   items: {
@@ -39,6 +40,7 @@ const selectedItem = ref(null)
 const searchQuery = ref('')
 
 const constituentsStore = useConstituentsStore()
+const historyStore = useHistoryStore()
 
 const filteredItems = computed(() => {
   if (!searchQuery.value) return props.items
@@ -52,6 +54,7 @@ const emit = defineEmits(['select'])
 const handleSelect = () => {
   if (selectedItem.value) {
     constituentsStore.setSelectedInstrument(selectedItem.value)
+    historyStore.setselectedTypeTab(constituentsStore.info.name ?? 'IPSA')
     emit('select', selectedItem.value)
   }
 }
