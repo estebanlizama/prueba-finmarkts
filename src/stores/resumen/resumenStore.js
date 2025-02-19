@@ -17,7 +17,7 @@ export const useResumenStore = defineStore('resumen', {
         if (data) {
           this.info = new ResumenInfoModel(data.info)
           this.price = new ResumenPriceModel(data.price)
-          this.setSelectedResumen(data) // Guardar resumen completo
+          this.setSelectedResumen(data)
         }
       } catch (error) {
         console.error('Error al cargar resumen:', error)
