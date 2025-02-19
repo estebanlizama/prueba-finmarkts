@@ -2,57 +2,54 @@
   <v-container class="instrument-list-container">
     <v-row v-if="showList">
       <template v-if="constituentsStore.constituents.length > splitThreshold">
-        <v-col cols="6">
-          <v-table dense class="instrument-table">
-            <thead>
-              <tr>
-                <th v-for="header in headers" :key="header.value">{{ header.text }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <InstrumentItemComponent
-                v-for="instrument in firstHalf"
-                :key="instrument.codeInstrument"
-                :instrument="instrument"
-              />
-            </tbody>
-          </v-table>
+        <v-col cols="12" md="6">
+          <v-data-table
+            :headers="headers"
+            :items="firstHalf"
+            :sort-by="[{ key: sortBy, order: sortDesc ? 'desc' : 'asc' }]"
+            class="instrument-table"
+            dense
+            :hide-default-footer="true"
+            theme="dark"
+          >
+            <template v-slot:item="{ item }">
+              <InstrumentItemComponent :instrument="item" />
+            </template>
+          </v-data-table>
         </v-col>
 
-        <v-col cols="6">
-          <v-table dense class="instrument-table">
-            <thead>
-              <tr>
-                <th v-for="header in headers" :key="header.value">{{ header.text }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <InstrumentItemComponent
-                v-for="instrument in secondHalf"
-                :key="instrument.codeInstrument"
-                :instrument="instrument"
-              />
-            </tbody>
-          </v-table>
+        <v-col cols="12" md="6">
+          <v-data-table
+            :headers="headers"
+            :items="secondHalf"
+            :sort-by="[{ key: sortBy, order: sortDesc ? 'desc' : 'asc' }]"
+            class="instrument-table"
+            dense
+            :hide-default-footer="true"
+            theme="dark"
+          >
+            <template v-slot:item="{ item }">
+              <InstrumentItemComponent :instrument="item" />
+            </template>
+          </v-data-table>
         </v-col>
       </template>
 
       <template v-else>
         <v-col cols="12">
-          <v-table dense class="instrument-table">
-            <thead>
-              <tr>
-                <th v-for="header in headers" :key="header.value">{{ header.text }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <InstrumentItemComponent
-                v-for="instrument in constituentsStore.constituents"
-                :key="instrument.codeInstrument"
-                :instrument="instrument"
-              />
-            </tbody>
-          </v-table>
+          <v-data-table
+            :headers="headers"
+            :items="constituentsStore.constituents"
+            :sort-by="[{ key: sortBy, order: sortDesc ? 'desc' : 'asc' }]"
+            class="instrument-table"
+            dense
+            :hide-default-footer="true"
+            theme="dark"
+          >
+            <template v-slot:item="{ item }">
+              <InstrumentItemComponent :instrument="item" />
+            </template>
+          </v-data-table>
         </v-col>
       </template>
     </v-row>
@@ -62,7 +59,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useConstituentsStore } from '@/stores/constituens/constituensStore'
 import InstrumentItemComponent from '@/components/InstrumentItemComponent.vue'
 
@@ -77,13 +74,13 @@ const constituentsStore = useConstituentsStore()
 const splitThreshold = 10
 
 const headers = [
-  { text: 'Nombre', value: 'shortName' },
-  { text: 'Último', value: 'lastPrice' },
-  { text: 'Monto (MM)', value: 'volumeMoney' },
-  { text: 'Var Día', value: 'pctDay' },
-  { text: 'Var 30d', value: 'pct30D' },
-  { text: 'Año Actual', value: 'pctCY' },
-  { text: '12 Meses', value: 'pct1Y' },
+  { title: 'Nombre', key: 'shortName', sortable: true },
+  { title: 'Último', key: 'lastPrice', sortable: true },
+  { title: 'Monto (MM)', key: 'volumeMoney', sortable: true },
+  { title: 'Var Día', key: 'pctDay', sortable: true },
+  { title: 'Var 30d**', key: 'pct30D', sortable: true },
+  { title: 'Año Actual', key: 'pctCY', sortable: true },
+  { title: '12 Meses', key: 'pct1Y', sortable: true },
 ]
 
 const showList = computed(() => constituentsStore.info.name === props.selectedIndex)
@@ -99,24 +96,41 @@ const secondHalf = computed(() =>
     ? constituentsStore.constituents.slice(Math.ceil(constituentsStore.constituents.length / 2))
     : [],
 )
+
+const sortBy = ref('shortName')
+const sortDesc = ref(false)
 </script>
 
 <style scoped>
 .instrument-list-container {
-  background-color: #121212;
-  padding: 16px;
-  border-radius: 8px;
+  background-color: #000;
+  width: 100%;
+  padding: 10px;
 }
 
 .instrument-table {
   width: 100%;
-  background-color: #1e1e1e;
+  background-color: #000;
   color: white;
+  font-size: 12px;
+  min-height: 250px; /* Mantiene tamaño estable */
 }
 
 .error-message {
   color: red;
   font-weight: bold;
   text-align: center;
+  font-size: 12px;
+  min-height: 50px;
+}
+
+@media (max-width: 768px) {
+  .instrument-table {
+    font-size: 10px;
+    min-height: 200px;
+  }
+  .error-message {
+    font-size: 10px;
+  }
 }
 </style>

@@ -9,7 +9,8 @@
       <v-window-item value="resumen">
         <div class="content">
           <p class="fecha">
-            <strong>Cotización:</strong> {{ resumen?.price?.datetimeLastPrice || '-' }}
+            <strong>Cotización:</strong>
+            {{ formatDateTime(resumen?.price?.datetimeLastPrice ?? '') || '-' }}
           </p>
 
           <v-divider></v-divider>
@@ -124,6 +125,7 @@
 
 <script setup>
 import { useResumenStore } from '@/stores/resumen/resumenStore'
+import { formatDateTime } from '@/utils/dateUtils'
 import { tendencyClassResult, tendencyIconResult } from '@/utils/variationUtils'
 import { ref, computed } from 'vue'
 

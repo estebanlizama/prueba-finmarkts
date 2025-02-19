@@ -4,22 +4,26 @@
       <SearchBarComponent
         v-if="!isLoading && !error"
         :items="constituentsStore.constituents"
-        placeholder="Busca un instrumento..."
+        placeholder="Busca un instrumento"
         selectPlaceholder="Selecciona un instrumento"
         @select="(instrument) => (constituentsStore.selectedInstrument = instrument)"
       />
     </div>
 
-    <div class="history-summary">
-      <div class="chart-summary">
-        <HeaderComponent />
-        <ChartComponent />
+    <div class="main-layout">
+      <!-- Sección superior con gráfico y resumen -->
+      <div class="top-section">
+        <div class="chart-summary">
+          <HeaderComponent />
+          <ChartComponent />
+        </div>
+        <SummaryComponent class="summary-component" />
       </div>
 
-      <SummaryComponent />
-    </div>
-    <div class="history-summary">
-      <TabComponent />
+      <!-- Sección inferior con las tablas -->
+      <div class="bottom-section">
+        <TabComponent />
+      </div>
     </div>
   </div>
 </template>
@@ -75,3 +79,68 @@ watch(
   },
 )
 </script>
+
+<style scoped>
+.container {
+  background-color: #000;
+  color: white;
+  padding: 10px;
+  font-size: 12px;
+  min-width: 80%;
+  margin: 0 auto;
+}
+
+.search-container {
+  margin-bottom: 10px;
+}
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.chart-summary {
+  flex: 2;
+  min-width: 60%;
+}
+
+.summary-component {
+  flex: 1;
+  min-width: 35%;
+}
+
+.bottom-section {
+  margin-top: 10px;
+}
+
+@media (max-width: 1200px) {
+  .top-section {
+    flex-direction: column;
+    align-items: center;
+  }
+  .summary-component {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 5px;
+  }
+  .chart-summary,
+  .summary-component {
+    width: 100%;
+  }
+  .top-section {
+    flex-direction: column;
+  }
+}
+</style>

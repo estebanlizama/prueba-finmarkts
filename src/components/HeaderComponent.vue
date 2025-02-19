@@ -2,7 +2,7 @@
   <div class="header">
     <div class="header-title">
       <h1>
-        {{ resumen?.info?.name ? resumen?.info?.name + ',' : 'Sin Resumen Asociado' }}
+        {{ resumen?.info?.name ? resumen?.info?.name + ',' : 'Sin resumen disponible' }}
         {{ resumen?.info?.countryName ?? '' }}
       </h1>
     </div>
@@ -24,8 +24,8 @@
       <div class="variation-row">
         <p class="variation">
           Var.% Actual
-          <strong :class="priceVariationActualClass"
-            >{{ resumen?.price?.pctRelCY?.toFixed(2) ?? '0' }}%</strong
+          <strong :class="priceVariationActualClass">
+            {{ resumen?.price?.pctRelCY?.toFixed(2) ?? '0' }}%</strong
           >
         </p>
       </div>
@@ -75,8 +75,8 @@ const priceVariationPointClass = computed(() => {
 .header {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 16px;
+  justify-content: left;
+  padding: 12px;
   background: #000;
   color: white;
   border-radius: 8px;
@@ -84,30 +84,33 @@ const priceVariationPointClass = computed(() => {
 }
 
 .header-title h1 {
-  font-size: 20px;
+  font-size: 18px;
   margin: 0;
 }
 
 .header-info {
   display: flex;
   flex-direction: row;
-  margin-top: 0px;
+  justify-content: left;
+  margin-top: 5px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 8px 0;
+  padding: 6px 0;
 }
 
 .price-column,
 .variation-row {
   display: flex;
-  justify-content: left;
-  width: 100%;
+  justify-content: center;
+  align-items: left;
+  margin-left: 10px;
 }
 
 .price,
 .variation {
-  font-size: 14px;
+  font-size: 12px;
   color: #bbb;
+  margin: 0;
 }
 
 .positive {
@@ -120,5 +123,13 @@ const priceVariationPointClass = computed(() => {
 
 .neutral {
   color: #999;
+}
+
+@media (max-width: 1200px) {
+  .header-info {
+    flex-direction: column;
+    align-items: left;
+    text-align: left;
+  }
 }
 </style>

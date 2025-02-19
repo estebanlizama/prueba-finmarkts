@@ -28,7 +28,7 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
-    default: 'Buscar instrumento...',
+    default: 'Buscar instrumento',
   },
   filterKey: {
     type: String,
@@ -63,7 +63,7 @@ const handleSelect = () => {
 <style scoped>
 .search-bar {
   width: 100%;
-  background-color: #121212;
+  background-color: #000;
   padding: 10px;
 }
 

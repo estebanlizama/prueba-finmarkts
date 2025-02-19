@@ -1,18 +1,18 @@
 <template>
   <tr @click="selectInstrument" class="instrument-item">
-    <td>{{ instrument.shortName }}</td>
-    <td>{{ formatCurrency(instrument.lastPrice) }}</td>
-    <td>{{ formatMillions(instrument.volumeMoney) }}</td>
-    <td :class="getVariationClass(instrument.pctDay)">
+    <td class="left-align">{{ instrument.shortName }}</td>
+    <td class="right-align">{{ formatCurrency(instrument.lastPrice) }}</td>
+    <td class="right-align">{{ formatMillions(instrument.volumeMoney) }}</td>
+    <td :class="['right-align', getVariationClass(instrument.pctDay)]">
       {{ formatPercentage(instrument.pctDay) }}
     </td>
-    <td :class="getVariationClass(instrument.pct30D)">
+    <td :class="['right-align', getVariationClass(instrument.pct30D)]">
       {{ formatPercentage(instrument.pct30D) }}
     </td>
-    <td :class="getVariationClass(instrument.pctCY)">
+    <td :class="['right-align', getVariationClass(instrument.pctCY)]">
       {{ formatPercentage(instrument.pctCY) }}
     </td>
-    <td :class="getVariationClass(instrument.pct1Y)">
+    <td :class="['right-align', getVariationClass(instrument.pct1Y)]">
       {{ formatPercentage(instrument.pct1Y) }}
     </td>
   </tr>
@@ -50,9 +50,15 @@ const getVariationClass = (value) => {
 }
 
 .instrument-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #003d80;
+}
+.left-align {
+  text-align: left;
 }
 
+.right-align {
+  text-align: right;
+}
 .positive {
   color: #4caf50;
 }

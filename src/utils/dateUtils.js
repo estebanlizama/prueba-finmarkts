@@ -46,3 +46,15 @@ export const filterByTimeFrame = (data, timeFrame) => {
 
   return data.filter((item) => item.parsedDate >= startDate)
 }
+
+export const formatDateTime = (input) => {
+  if (!input) return 'Fecha no disponible'
+  const [date, time] = input.split(' ')
+  const [day, month, year] = date.split('-')
+  let [hours, minutes, seconds] = time.split(':').map(Number)
+
+  const period = hours >= 12 ? 'p. m.' : 'a. m.'
+  hours = hours % 12 || 12
+
+  return `${day}/${month}/${year} - ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${period}`
+}

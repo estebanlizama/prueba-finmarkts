@@ -1,7 +1,7 @@
 <template>
   <div class="chart-container">
     <template v-if="chartData && chartData.labels[0] !== 'Sin datos'">
-      <Line :data="chartData" :options="chartOptions" />
+      <Line :data="chartData" :options="chartOptions" class="chart" />
     </template>
     <p v-else class="no-data-message">No hay datos disponibles en este rango de fechas.</p>
 
@@ -20,9 +20,9 @@
         <v-icon icon="mdi-calendar"></v-icon>
       </button>
 
-      <v-dialog v-model="showDatePicker" width="300">
+      <v-dialog v-model="showDatePicker" width="280">
         <v-card>
-          <v-card-title>Seleccionar Fecha de Inicio</v-card-title>
+          <v-card-title>Seleccionar Fecha</v-card-title>
           <v-card-text>
             <v-date-picker v-model="selectedStartDate" />
           </v-card-text>
@@ -102,36 +102,37 @@ const applyCustomDateRange = () => {
 .chart-container {
   background: #000;
   border-radius: 8px;
-  padding: 16px;
+  padding: 10px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
   width: 100%;
-  max-width: 900px;
+  max-width: 600px;
 }
 
 .chart {
   width: 100%;
-  max-width: 800px;
-  height: auto;
+  max-width: 500px;
+  height: 250px;
 }
 
 .time-buttons {
   display: flex;
-  flex-direction: row;
-  gap: 8px;
-  margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
 }
 
 .time-btn {
   background: #1e1e1e;
   color: white;
   border: none;
-  padding: 6px 12px;
+  padding: 4px 8px;
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.3s;
+  font-size: 10px;
 }
 
 .time-btn:hover {
@@ -143,22 +144,27 @@ const applyCustomDateRange = () => {
 }
 
 .calendar-btn {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .no-data-message {
   color: red;
-  font-size: 14px;
-  margin-top: 10px;
+  font-size: 10px;
+  margin-top: 8px;
 }
 
 @media (max-width: 768px) {
   .chart-container {
-    width: 100%;
-    padding: 10px;
+    max-width: 100%;
+    padding: 5px;
   }
   .chart {
-    width: 100%;
+    max-width: 100%;
+    height: 200px;
+  }
+  .time-btn {
+    padding: 3px 6px;
+    font-size: 9px;
   }
 }
 </style>
